@@ -1,83 +1,51 @@
-# React + Vite + Hono + Cloudflare Workers
+# Sitemap Cloudflare Worker
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/sitemap)
+This worker intercepts requests to `/sitemap.xml` and serves a dynamically generated sitemap from the Supabase Edge Function.
 
-This template provides a minimal setup for building a React application with TypeScript and Vite, designed to run on Cloudflare Workers. It features hot module replacement, ESLint integration, and the flexibility of Workers deployments.
+## Features
 
-![React + TypeScript + Vite + Cloudflare Workers](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/fc7b4b62-442b-4769-641b-ad4422d74300/public)
+- Fetches the sitemap from Supabase Edge Function
+- Applies proper caching headers
+- Handles errors gracefully
+- Logs diagnostic information
 
-<!-- dash-content-start -->
+## Deployment Instructions
 
-🚀 Supercharge your web development with this powerful stack:
+1. Install Wrangler CLI if you haven't already:
+   ```
+   npm install -g wrangler
+   ```
 
-- [**React**](https://react.dev/) - A modern UI library for building interactive interfaces
-- [**Vite**](https://vite.dev/) - Lightning-fast build tooling and development server
-- [**Hono**](https://hono.dev/) - Ultralight, modern backend framework
-- [**Cloudflare Workers**](https://developers.cloudflare.com/workers/) - Edge computing platform for global deployment
+2. Authenticate with Cloudflare:
+   ```
+   wrangler login
+   ```
 
-### ✨ Key Features
+3. Deploy the worker:
+   ```
+   cd workers/sitemap
+   wrangler publish
+   ```
 
-- 🔥 Hot Module Replacement (HMR) for rapid development
-- 📦 TypeScript support out of the box
-- 🛠️ ESLint configuration included
-- ⚡ Zero-config deployment to Cloudflare's global network
-- 🎯 API routes with Hono's elegant routing
-- 🔄 Full-stack development setup
+4. Verify the deployment:
+   - Visit `https://topwebsitebuilder.ai/sitemap.xml`
+   - Check that it returns a valid XML sitemap
+   - Verify that the appropriate cache headers are present
 
-Get started in minutes with local development or deploy directly via the Cloudflare dashboard. Perfect for building modern, performant web applications at the edge.
+## Configuration
 
-<!-- dash-content-end -->
+- Edit `wrangler.toml` to update the routes or add KV storage
+- The worker is configured to cache the sitemap for 24 hours at the CDN level
 
-## Getting Started
+## Troubleshooting
 
-To start a new project with this template, run:
+If you encounter issues with the sitemap:
 
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/sitemap
-```
+1. Check the Cloudflare Worker logs for errors
+2. Verify the Supabase Edge Function is working correctly
+3. Test direct access to the Supabase function endpoint
 
-A live deployment of this template is available at:
-[https://react-vite-template.templates.workers.dev](https://react-vite-template.templates.workers.dev)
+## Maintenance
 
-## Development
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server with:
-
-```bash
-npm run dev
-```
-
-Your application will be available at [http://localhost:5173](http://localhost:5173).
-
-## Production
-
-Build your project for production:
-
-```bash
-npm run build
-```
-
-Preview your build locally:
-
-```bash
-npm run preview
-```
-
-Deploy your project to Cloudflare Workers:
-
-```bash
-npx wrangler deploy
-```
-
-## Additional Resources
-
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
-- [Vite Documentation](https://vitejs.dev/guide/)
-- [React Documentation](https://reactjs.org/)
-- [Hono Documentation](https://hono.dev/)
+- Monitor the worker's performance in the Cloudflare dashboard
+- Periodically check that the sitemap is being updated correctly
