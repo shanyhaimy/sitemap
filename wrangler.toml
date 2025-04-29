@@ -1,0 +1,13 @@
+name = "sitemap-worker"
+main = "index.js"
+compatibility_date = "2023-05-18"
+
+# Route configuration - match requests to /sitemap.xml
+routes = [
+  { pattern = "*topwebsitebuilder.ai/sitemap.xml", zone_name = "topwebsitebuilder.ai" }
+]
+
+# Optional KV namespace for caching (uncomment and configure if needed)
+# kv_namespaces = [
+#   { binding = "SITEMAP_CACHE", id = "YOUR_KV_ID_HERE" }
+# ]
